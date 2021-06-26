@@ -10,6 +10,8 @@ import {
 import Table from 'react-bootstrap/Table';
 import Container from 'react-bootstrap/Container';
 import { Button, Col, Row } from 'react-bootstrap';
+import type { Asset } from './types';
+import AssetService from './services/AssetService';
 
 
 interface AppProps {}
@@ -45,37 +47,25 @@ function App({}: AppProps) {
 }
 
 function AssetList() {
-  const assets = [
-    {
-      dop: new Date(),
-      code: "SMPH",
-      num_of_shares: 500,
-      buy_price: 37.80,
-      broker_fee: 100.00,
-    },
-    {
-      dop: new Date(),
-      code: "SMPH",
-      num_of_shares: 100,
-      buy_price: 37.80,
-      broker_fee: 100.00,
-    },
-    {
-      dop: new Date(),
-      code: "SMPH",
-      num_of_shares: 100,
-      buy_price: 37.80,
-      broker_fee: 100.00,
-    }
-  ];
+  const [ assets, setAssets ] = useState<ReadonlyArray<Asset>>([]);
+
+  useEffect(() => {
+    function fetchAssets() {
+      const { data } = AssetService.getAssets();
+      if (data) {
+        setAssets(data);
+      }
+    };
+    fetchAssets();
+  })
 
   const assetList = assets.map(asset => (
     <tr>
-      <td>{asset.dop.toLocaleString()}</td>
+      <td>{asset.dateOfPurchase.toLocaleString()}</td>
       <td>{asset.code}</td>
-      <td>{asset.num_of_shares}</td>
-      <td>{asset.buy_price}</td>
-      <td>{asset.broker_fee}</td>
+      <td>{asset.numOfShares}</td>
+      <td>{asset.buyPrice}</td>
+      <td>{asset.brokerFee}</td>
     </tr>
   ));
 
@@ -119,7 +109,6 @@ function Dashboard() {
     </Container>
   );
 }
-
 
 
 export default App;
