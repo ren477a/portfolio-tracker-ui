@@ -16,15 +16,19 @@ function AssetList() {
       fetchAssets();
     })
   
-    const assetList = assets.map(asset => (
-      <tr>
-        <td>{asset.dateOfPurchase.toLocaleString()}</td>
-        <td>{asset.code}</td>
-        <td>{asset.numOfShares}</td>
-        <td>{asset.buyPrice}</td>
-        <td>{asset.brokerFee}</td>
-      </tr>
-    ));
+    const assetList = assets.map(asset => {
+      const amount = asset.buyPrice * asset.numOfShares;
+      return (
+        <tr>
+          <td className="text-center">{asset.dateOfPurchase.toDateString()}</td>
+          <td className="text-center">{asset.code}</td>
+          <td><span className="float-end">{asset.numOfShares}</span></td>
+          <td><span className="float-end">{asset.buyPrice}</span></td>
+          <td><span className="float-end">{amount.toFixed(2)}</span></td>
+          <td><span className="float-end">{asset.brokerFee}</span></td>
+        </tr>
+      );
+    });
   
     return (
       <Container>
@@ -40,11 +44,12 @@ function AssetList() {
           <Table striped bordered hover>
             <thead>
               <tr>
-                <th>Date of Purchase</th>
-                <th>Code</th>
-                <th># of Shares</th>
-                <th>Buy Price</th>
-                <th>Broker Fee</th>
+                <th className="text-center">Date of Purchase</th>
+                <th className="text-center">Code</th>
+                <th className="text-center"># of Shares</th>
+                <th className="text-center">Buy Price</th>
+                <th className="text-center">Amount</th>
+                <th className="text-center">Broker Fee</th>
               </tr>
             </thead>
             <tbody>
