@@ -1,13 +1,13 @@
-import React from 'react';
-import './App.css';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import Container from 'react-bootstrap/Container';
+import React, { ReactElement } from 'react';
 import { Row } from 'react-bootstrap';
+import Container from 'react-bootstrap/Container';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+
 import AssetList from './scenes/AssetList';
 
-interface AppProps {}
+import './App.css';
 
-function App({}: AppProps) {
+function App(): ReactElement {
   return (
     <Router>
       <div>
