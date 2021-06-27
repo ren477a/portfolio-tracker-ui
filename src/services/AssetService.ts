@@ -1,4 +1,5 @@
 import type { Asset } from 'src/types';
+
 import type { APIResult } from './types';
 
 function getAssets(): APIResult<ReadonlyArray<Asset>> {

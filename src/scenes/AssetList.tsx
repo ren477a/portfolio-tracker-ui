@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Button, Table } from 'react-bootstrap';
+import React, { ReactElement, useEffect, useState } from 'react';
+import { Button, Col, Container, Row, Table } from 'react-bootstrap';
+
 import AssetService from '../services/AssetService';
 import type { Asset } from '../types';
 
-function AssetList() {
+function AssetList(): ReactElement {
   const [assets, setAssets] = useState<ReadonlyArray<Asset>>([]);
 
   useEffect(() => {
@@ -19,7 +20,7 @@ function AssetList() {
   const assetList = assets.map((asset) => {
     const amount = asset.buyPrice * asset.numOfShares;
     return (
-      <tr>
+      <tr key={asset.id}>
         <td className="text-center">{asset.dateOfPurchase.toDateString()}</td>
         <td className="text-center">{asset.code}</td>
         <td>
